@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
 	"os"
 )
 
@@ -24,9 +26,19 @@ func loadPage(title string) (*Page, error) {
 	return &Page{Title: title, Body: body}, nil
 }
 
+func handler(w http.ResponseWriter, r *http.Request) {
+	_, err := fmt.Fprintf(w, "<h1>%s</h1>", r.URL.Path[1:])
+	if err != nil {
+		return
+	}
+}
+
 func main() {
-	p1 := Page{Title: "Page1", Body: []byte("This is my first page.")}
-	p1.save()
-	p2, _ := loadPage("Page1")
-	fmt.Println(string(p2.Body))
+	//p1 := Page{Title: "Page1", Body: []byte("This is my first page.")}
+	//p1.save()
+	//p2, _ := loadPage("Page1")
+	//fmt.Println(string(p2.Body))
+
+	http.HandleFunc("/", handler)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
