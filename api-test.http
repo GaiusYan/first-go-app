@@ -4,3 +4,17 @@ GET https://examples.http-client.intellij.net/get
 
 ###
 GET localhost:8080/albums
+
+###
+GET localhost:8080/albums/12345
+
+###
+POST localhost:8080/albums
+Content-Type: application/json
+
+{
+  "ID" : "12345",
+  "Title" : "Mon nouveau titre",
+  "Artist" : "Gaius Yan-bena",
+  "Price" : 15.455
+}
